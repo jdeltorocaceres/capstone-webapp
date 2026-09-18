@@ -213,6 +213,20 @@ footer p {
     font-weight: bold;
 }
 
+.service-button {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background: #163a5f;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.service-button:hover {
+    background: #244d73;
+}
+
 /* MOBILE */
 
 @media (max-width: 750px) {
