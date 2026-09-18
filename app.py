@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 # --------------------------------------------------
-# DEMO ONLY - intentionally hardcoded credential
+# DEMO ONLY - credenciales hardcodeadas intencionalmente como hipótesis
 # Cybersecurity Capstone Project
 # This key does not provide access to any real service.
 # --------------------------------------------------
