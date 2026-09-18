@@ -173,6 +173,46 @@ footer p {
     margin: 5px 0;
 }
 
+/* SYSTEM STATUS */
+
+.status-list {
+    background: white;
+    border: 1px solid #dde3e8;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e9ec;
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+.status-ok {
+    background: #edf7ef;
+    color: #247238;
+    border: 1px solid #b9ddbf;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.back-link {
+    margin-top: 30px;
+}
+
+.back-link a {
+    color: #163a5f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 /* MOBILE */
 
 @media (max-width: 750px) {
