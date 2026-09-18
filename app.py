@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -9,7 +10,7 @@ app = Flask(__name__)
 # This key does not provide access to any real service.
 # --------------------------------------------------
 
-MONITOR_API_KEY = "DEMO_MONITOR_API_KEY_CAPSTONE_2026"
+MONITOR_API_KEY = os.environ.get("MONITOR_API_KEY")
 
 
 def get_monitoring_data(api_key):
