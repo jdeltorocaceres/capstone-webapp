@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Estado del sistema | SIGI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="container header-content">
+        <div class="logo">SIGI</div>
+
+        <div>
+            <h1>Sistema Institucional de Gestión de Información</h1>
+            <p>Monitorización de servicios</p>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <a href="/">Inicio</a>
+        <a href="/status">Estado del sistema</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <section class="welcome">
+        <h2>Estado de los sistemas</h2>
+
+        <p>
+            Información de disponibilidad de los servicios
+            tecnológicos institucionales.
+        </p>
+
+        <div class="notice">
+            Última comprobación:
+            <strong>Servicios disponibles</strong>
+        </div>
+    </section>
+
+    <section>
+        <h2>Servicios monitorizados</h2>
+
+        <div class="status-list">
+
+            {% for service in services %}
+
+            <div class="status-item">
+
+                <div>
+                    <strong>{{ service.name }}</strong>
+                </div>
+
+                <span class="status-ok">
+                    {{ service.status }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <p class="back-link">
+        <a href="/">← Volver al portal</a>
+    </p>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>
+            SIGI · Sistema Institucional de Gestión de Información
+        </p>
+
+        <p>
+            Entorno demostrativo — Cybersecurity Capstone Project
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
