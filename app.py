@@ -12,6 +12,26 @@ app = Flask(__name__)
 MONITOR_API_KEY = "DEMO_MONITOR_API_KEY_CAPSTONE_2026"
 
 
+def get_monitoring_data(api_key):
+    """
+    Simulates an internal monitoring service protected
+    by an API key.
+    """
+
+    if api_key != MONITOR_API_KEY:
+        return None
+
+    return {
+        "environment": "production-demo",
+        "services": {
+            "Portal institucional": "Operativo",
+            "Servicio de documentos": "Operativo",
+            "API de monitorización": "Operativo",
+            "Base de datos": "Operativo"
+        }
+    }
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -19,24 +39,19 @@ def home():
 
 @app.route("/status")
 def status():
-    services = [
-        {
-            "name": "Portal institucional",
-            "status": "Operativo"
-        },
-        {
-            "name": "Servicio de documentos",
-            "status": "Operativo"
-        },
-        {
-            "name": "API de monitorización",
-            "status": "Operativo"
-        },
-        {
-            "name": "Base de datos",
-            "status": "Operativo"
-        }
-    ]
+
+    # Application authenticates against the monitoring
+    # service using the hardcoded API key.
+    monitoring_data = get_monitoring_data(MONITOR_API_KEY)
+
+    services = []
+
+    if monitoring_data:
+        for name, service_status in monitoring_data["services"].items():
+            services.append({
+                "name": name,
+                "status": service_status
+            })
 
     return render_template("status.html", services=services)
 
@@ -46,20 +61,15 @@ def monitor_api():
 
     supplied_key = request.headers.get("X-API-Key")
 
-    if supplied_key != MONITOR_API_KEY:
+    monitoring_data = get_monitoring_data(supplied_key)
+
+    if monitoring_data is None:
         return jsonify({
             "error": "Unauthorized",
             "message": "Valid API key required"
         }), 401
 
-    return jsonify({
-        "environment": "production-demo",
-        "services": {
-            "portal": "operational",
-            "documents": "operational",
-            "database": "operational"
-        }
-    })
+    return jsonify(monitoring_data)
 
 
 if __name__ == "__main__":
