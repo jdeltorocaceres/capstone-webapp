@@ -3,20 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Institucional</title>
+
+    <title>Portal Institucional | SIGI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <h1>Portal Institucional</h1>
+<header class="topbar">
+    <div class="container header-content">
+        <div class="logo">SIGI</div>
 
-    <p>
-        Sistema interno de gestión de información.
-    </p>
+        <div>
+            <h1>Sistema Institucional de Gestión de Información</h1>
+            <p>Portal de servicios digitales</p>
+        </div>
+    </div>
+</header>
 
-    <p>
-        Cybersecurity Capstone Project
-    </p>
+<nav>
+    <div class="container">
+        <a href="/">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#avisos">Avisos</a>
+        <a href="#contacto">Contacto</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <section class="welcome">
+        <h2>Bienvenido al Portal Institucional</h2>
+
+        <p>
+            Desde este portal puede acceder a los servicios digitales
+            y consultar información de los sistemas institucionales.
+        </p>
+
+        <div class="notice">
+            Estado de los servicios:
+            <strong>Operación normal</strong>
+        </div>
+    </section>
+
+
+    <section id="servicios">
+        <h2>Servicios</h2>
+
+        <div class="cards">
+
+            <article class="card">
+                <div class="card-icon">DOC</div>
+                <h3>Consulta de documentos</h3>
+                <p>
+                    Consulte documentos y expedientes registrados
+                    en el sistema institucional.
+                </p>
+                <button disabled>Acceder</button>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">SYS</div>
+                <h3>Estado del sistema</h3>
+                <p>
+                    Consulte la disponibilidad de los servicios
+                    y sistemas internos.
+                </p>
+                <button disabled>Consultar</button>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">ADM</div>
+                <h3>Acceso administrativo</h3>
+                <p>
+                    Área reservada para personal autorizado
+                    y administradores del sistema.
+                </p>
+                <button disabled>Iniciar sesión</button>
+            </article>
+
+        </div>
+    </section>
+
+
+    <section id="avisos" class="section">
+        <h2>Avisos institucionales</h2>
+
+        <div class="info-box">
+            <strong>Mantenimiento programado</strong>
+            <p>
+                Las tareas de mantenimiento de los sistemas
+                se comunicarán mediante este portal.
+            </p>
+        </div>
+    </section>
+
+</main>
+
+
+<footer id="contacto">
+    <div class="container">
+        <p>
+            SIGI · Sistema Institucional de Gestión de Información
+        </p>
+        <p>
+            Entorno demostrativo — Cybersecurity Capstone Project
+        </p>
+    </div>
+</footer>
 
 </body>
 </html>
