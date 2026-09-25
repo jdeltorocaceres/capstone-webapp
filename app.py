@@ -1,10 +1,12 @@
 import os
 import logging
+import hmac
 from datetime import datetime, timezone
 
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+
 
 # --------------------------------------------------
 # AUDIT LOGGING - CAPSTONE DEMONSTRATION
@@ -27,11 +29,15 @@ def log_api_access(result, status_code):
         "method=%s path=%s result=%s http_status=%s",
         timestamp,
         request.method,
-        
+        request.path,
+        result,
+        status_code
+    )
+
+
 # --------------------------------------------------
-# DEMO ONLY - credenciales hardcodeadas intencionalmente como hipótesis
-# Cybersecurity Capstone Project
-# This key does not provide access to any real service.
+# CREDENTIAL MANAGEMENT
+# API key loaded from Render environment variables
 # --------------------------------------------------
 
 MONITOR_API_KEY = os.environ.get("MONITOR_API_KEY")
@@ -43,11 +49,13 @@ def get_monitoring_data(api_key):
     by an API key.
     """
 
+    # Reject requests if the key is missing or not configured.
     if not MONITOR_API_KEY or not api_key:
-    return None
+        return None
 
-    if api_key != MONITOR_API_KEY:
-    return None
+    # Validate the supplied credential.
+    if not hmac.compare_digest(api_key, MONITOR_API_KEY):
+        return None
 
     return {
         "environment": "production-demo",
@@ -68,8 +76,6 @@ def home():
 @app.route("/status")
 def status():
 
-    # Application authenticates against the monitoring
-    # service using the hardcoded API key.
     monitoring_data = get_monitoring_data(MONITOR_API_KEY)
 
     services = []
@@ -110,6 +116,9 @@ def monitor_api():
 
     return jsonify(monitoring_data)
 
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
