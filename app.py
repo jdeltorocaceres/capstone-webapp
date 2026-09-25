@@ -1,9 +1,33 @@
 import os
+import logging
+from datetime import datetime, timezone
+
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
+# --------------------------------------------------
+# AUDIT LOGGING - CAPSTONE DEMONSTRATION
+# --------------------------------------------------
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+
+audit_logger = logging.getLogger("sigi.audit")
+
+
+def log_api_access(result, status_code):
+
+    timestamp = datetime.now(timezone.utc).isoformat()
+
+    audit_logger.info(
+        "AUDIT timestamp=%s event=monitor_api_access "
+        "method=%s path=%s result=%s http_status=%s",
+        timestamp,
+        request.method,
+        
 # --------------------------------------------------
 # DEMO ONLY - credenciales hardcodeadas intencionalmente como hipótesis
 # Cybersecurity Capstone Project
@@ -65,10 +89,21 @@ def monitor_api():
     monitoring_data = get_monitoring_data(supplied_key)
 
     if monitoring_data is None:
+
+        log_api_access(
+            result="DENIED",
+            status_code=401
+        )
+
         return jsonify({
             "error": "Unauthorized",
             "message": "Valid API key required"
         }), 401
+
+    log_api_access(
+        result="SUCCESS",
+        status_code=200
+    )
 
     return jsonify(monitoring_data)
 
