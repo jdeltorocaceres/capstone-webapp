@@ -43,8 +43,11 @@ def get_monitoring_data(api_key):
     by an API key.
     """
 
+    if not MONITOR_API_KEY or not api_key:
+    return None
+
     if api_key != MONITOR_API_KEY:
-        return None
+    return None
 
     return {
         "environment": "production-demo",
